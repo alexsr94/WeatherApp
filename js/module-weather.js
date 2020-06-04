@@ -15,13 +15,15 @@ async function getWather(latitud, longitud) {
       longitud +
       "&key=" +
       apiKey
-  ).then((response) => {
-    response.json().then((data) => {
-     
-      render(data);
+  )
+    .then((response) => {
+      response.json().then((data) => {
+        render(data);
+      });
+    })
+    .catch((err) => {
+      showError();
     });
-  })
-  .catch((err)=>{showError()});
 }
 
 geoLoc();
@@ -34,12 +36,13 @@ function render(dataObject) {
   const precipitaciones = dataObject.data[0].precip;
   const windDirection = dataObject.data[0].wind_cdir_full;
   descriptionIcon(description);
+ let date = document.querySelectorAll(".date");
+ date.forEach((x)=>{x.innerHTML=new Date().toString().slice(0,10)})
   document.querySelector(".num").innerHTML = `${temp}<sup>o</sup>C`;
   document.querySelector(".location").innerHTML = `${city} - ${description}`;
   document.querySelector(".wind-direction").innerText = windDirection;
-  document.querySelector(".precip").innerText = precipitaciones + "%";
-  document.querySelector(".wind").innerText = windSpeed + "km/h";
-  
+  document.querySelector(".precip").innerText = precipitaciones + " %";
+  document.querySelector(".wind").innerText = windSpeed + " km/h";
 
   //TEMP//
   //descripcion//
@@ -51,12 +54,14 @@ function render(dataObject) {
 function showPosition(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
-  getWather(lat, long,render,showError);
+  getWather(lat, long, render, showError);
 }
 function showError(err) {
   alert(`Something went wrong...`);
   document.querySelector(".num").innerHTML = `Something went wrong...`;
-  document.querySelector(".location").innerHTML = `Check your internet conection...`;
+  document.querySelector(
+    ".location"
+  ).innerHTML = `Check your internet conection...`;
   document.querySelector(".wind-direction").innerText = "";
   document.querySelector(".precip").innerText = "";
   document.querySelector(".wind").innerText = "";
@@ -68,4 +73,8 @@ function descriptionIcon(string) {
   if (string.toLowerCase().includes("overcast")) {
     document.querySelector(".description-icon").src = "images/icons/icon-6.svg";
   }
+  if (string.toLowerCase().includes("clear")) {
+    document.querySelector(".description-icon").src = "images/icons/icon-2.svg";
+  }
+
 }
