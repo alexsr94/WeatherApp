@@ -8,6 +8,12 @@
       content="width=device-width, initial-scale=1.0,maximum-scale=1"
     />
 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
     <title>Migracode Weather Project</title>
 
     <!-- Loading third party fonts -->
@@ -61,11 +67,7 @@
       <div class="hero" data-bg-image="images/banner.png">
         <div class="container">
           <form action="#" class="find-location">
-            <input
-              id="input1"
-              type="text"
-              placeholder="Find another location..."
-            />
+            <input id="input1" type="text" placeholder="Find another city..." />
             <input type="submit" value="Find" />
             <div
               id="divList"
@@ -85,7 +87,6 @@
                 <div class="day">Today</div>
                 <div class="date">
                   6 Oct
-                  
                 </div>
               </div>
               <!-- .forecast-header -->
@@ -118,6 +119,10 @@
           </div>
         </div>
       </div>
+      <div class="container">
+        <div id="map" style='width: 100%; height: 500px;'></div>
+        
+      </div>
     </div>
 
     <!--	
@@ -127,6 +132,6 @@
     <script src="js/plugins.js"></script>
 
     <script src="js/module-weather.js"></script>
-    <script src="js/finderapp.js"></script>
+    
   </body>
 </html>
